@@ -6,10 +6,16 @@ const customMiddleware = (req, res, next) =>{
     next();
 }
 
-//Generic Middleware
-// app.use(customMiddleware);
+const customMiddleware2 = (req, res, next) =>{
+    console.log("In Middleware 2");
+    next();
+}
 
-app.get('/',customMiddleware,  (req, res)=> {
+//Generic Middleware
+app.use(customMiddleware);
+app.use(customMiddleware2);
+
+app.get('/',  (req, res)=> {
     res.send("Hello World");
     // res.sendFile(__dirname, "public", "index.html");
 })
