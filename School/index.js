@@ -1,7 +1,7 @@
 const express = require("express");
 const app = express();
 
-
+app.use(express.json()) //To parse json data(middleware)
 app.get('/', (req, res) => {
     res.send(studentArray);
 })
@@ -26,11 +26,11 @@ app.get("/api/student/:id", (req, res) => {
 })
 
 app.post("/api/student", (req,res)=> {
-    let name = "Utkarsh";
-    let currentClass = 9;
-    let division = 'B';
+    let name = req.body.name;  // let name = "Utkarsh";
+    let currentClass = req.body.currentClass;  // let currentClass = 9;
+    let division = req.body.division;   // let division = 'B';
     let student = {
-        id: 8,
+        id : studentArray.length + 1,   // id: 8,
         name: name,
         currentClass: currentClass,
         division: division
