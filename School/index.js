@@ -1,11 +1,12 @@
 const express = require("express");
 const app = express();
 
-const studentArray = require("./initialData");
 
 app.get('/', (req, res) => {
-    res.send("Hello World");
+    res.send(studentArray);
 })
+
+const studentArray = require("./initialData");
 
 app.get("/api/student/:id", (req, res) => {
     let id = req.params.id;
@@ -22,6 +23,20 @@ app.get("/api/student/:id", (req, res) => {
     }
     
     res.send(student);
+})
+
+app.post("/api/student", (req,res)=> {
+    let name = "Utkarsh";
+    let currentClass = 9;
+    let division = 'B';
+    let student = {
+        id: 8,
+        name: name,
+        currentClass: currentClass,
+        division: division
+    }
+    studentArray.push(student);
+    res.send(studentArray);
 })
 
 app.listen(4000, ()=> {
