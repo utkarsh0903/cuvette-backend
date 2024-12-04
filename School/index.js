@@ -92,6 +92,23 @@ app.put("/api/student/:id", (req, res) => {
     }
 })
 
+app.delete("/api/student/:id", (req, res) => {
+    let id = req.params.id;
+    if(!isNaN(id)){
+        id = parseInt(id);
+        let oldObj = studentArray.find(item =>{
+            return item.id == id;
+        })
+        if(oldObj == undefined){
+            res.status(404).send("Student not found");
+        }else{
+            let index = studentArray.indexOf(oldObj);
+            studentArray.splice(index, 1);
+            res.send(studentArray);
+        }
+    }
+})
+
 app.listen(4000, () => {
   console.log("Server running on port 4000");
 });
