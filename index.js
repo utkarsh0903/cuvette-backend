@@ -1,6 +1,8 @@
 const express = require("express");
 const app = express();
+app.set("view engine", "ejs");
 
+// app.use(express.static('public'));
 const customMiddleware = (req, res, next) =>{
     console.log("In Middleware");
     next();
@@ -16,8 +18,13 @@ app.use(customMiddleware);
 app.use(customMiddleware2);
 
 app.get('/',  (req, res)=> {
-    res.send("Hello World");
+    res.render("index");
+    // res.send("Hello World");
     // res.sendFile(__dirname, "public", "index.html");
+})
+
+app.get("/about", (req, res) => {
+    res.render("about")
 })
 
 //Creating middleware for particular route
