@@ -2,7 +2,7 @@ const express = require("express");
 const app = express();
 
 const mongoose = require("mongoose");
-mongoose.connect("mongodb://localhost:27017/pgpjuly").then(() => {
+mongoose.connect("mongodb+srv://utkarshgarg0903:pgpjuly@cluster0.s1kz7.mongodb.net/testt").then(() => {
   console.log("Connected to mongodb");
 });
 
