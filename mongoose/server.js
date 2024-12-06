@@ -1,35 +1,28 @@
 const express = require("express");
 const app = express();
+const connectDb = require("./config/db");
+const PORT = 4000;
 
-const mongoose = require("mongoose");
-mongoose.connect("mongodb+srv://utkarshgarg0903:pgpjuly@cluster0.s1kz7.mongodb.net/testt").then(() => {
-  console.log("Connected to mongodb");
-});
+// const mongoose = require("mongoose");
 
-const studentSchema = new mongoose.Schema({
-  name: String,
-  age: Number,
-  email: String,
-});
-
-const students = new mongoose.model("Student", studentSchema);
-
-const addData = () => {
-  // const student1 = new students({   //adding new object to instance object
-  //     name: "Utkarsh",
-  //     age: 25,
-  //     email: "utkarshgarg871@gmail.com"
-  // })
-  // student1.save();     //to save the data
-  students.create({            //one more way to create data. 
-    name: "Rahul",
-    age: 26,
-    email: "rahuldhingra@gmail.com"
+connectDb().then(()=>{
+    app.on('error', (error) => {
+        console.log("App connection failed", error);
+        process.exit(1)
+    })
+    app.listen(process.env.PORT || 8000, () => {
+        console.log(`Listening on PORT: ${PORT}`);
+    })
   })
-};
+  .catch((error) => {
+    console.log("MongoDB Connection Failed !!", error);
 
-addData();
-
-app.listen(3000, () => {
-  console.log("Listening on port 3000");
 });
+
+// const studentSchema = new mongoose.Schema({
+//   name: String,
+//   age: Number,
+//   email: String,
+// });
+
+// const students = mongoose.model("Student", studentSchema);
