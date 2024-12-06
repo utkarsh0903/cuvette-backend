@@ -2,12 +2,12 @@ const mongoose = require("mongoose");
 
 const connectDb = async () => {
   try {
-    const connectionInstance = await mongoose.connect(`mongodb+srv://utkarshgarg0903:pgpjuly@cluster0.s1kz7.mongodb.net/post`);
+    const connectionInstance = await mongoose.connect(`mongodb+srv://utkarshgarg0903:pgpjuly@cluster0.s1kz7.mongodb.net/blog`);
     console.log(`MongoDB Connected !! DB Host ${connectionInstance.connection.host}`);
   } catch (error) {
     console.log("MOngodB connection error", error);
     process.exit(1);
-  }
+  }  
 };
 
 module.exports = connectDb;
