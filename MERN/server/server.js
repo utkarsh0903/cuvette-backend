@@ -1,3 +1,5 @@
+const dotenv = require("dotenv");
+dotenv.config();
 const express =require("express");
 const connectDb = require("./config/data");
 const bcrypt = require("bcrypt");
@@ -8,10 +10,12 @@ const app = express();
 connectDb();
 app.use(express.json());
 app.use(cors());
+const port = process.env.PORT || 6000;
 
 app.post("/register", async (req, res) =>{
     const {username, email, password} = req.body;
     const user = await User.findOne({email});
+    console.log(process.env)
     if(user){
        return res.status(400).json("User already exist")
     }
@@ -39,6 +43,6 @@ app.post("/login", async (req, res)=>{
     return res.json({message: "Login successful"})
 })
 
-app.listen(3000, ()=>{
-    console.log("Listening on port 3000")
+app.listen(port, ()=>{
+    console.log(`Listening on port ${port}`)
 })
