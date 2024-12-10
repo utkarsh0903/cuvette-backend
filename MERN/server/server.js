@@ -1,11 +1,13 @@
 const express =require("express");
 const connectDb = require("./config/data");
 const bcrypt = require("bcrypt");
+const cors = require("cors");
 const User = require("./model/User");
 const app = express();
 
 connectDb();
 app.use(express.json());
+app.use(cors());
 
 app.post("/register", async (req, res) =>{
     const {username, email, password} = req.body;
@@ -21,6 +23,11 @@ app.post("/register", async (req, res) =>{
     })
     await newUser.save();
     res.json("Registration done successfully");
+})
+
+//for login post as set up in rules because data is taken from frontend.
+app.post("/login", async (req, res)=>{
+    const {email, password} = req.body;
 })
 
 app.listen(3000, ()=>{
