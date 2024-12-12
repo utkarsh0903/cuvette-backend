@@ -55,4 +55,9 @@ router.get("/profile", verifyUser, (req, res)=>{
     res.json({status: true, message:"Profile"})
 })
 
+router.post("/logout", (req, res)=>{
+    res.clearCookie("token");
+    res.json("Logged out successfully")
+})
+
 module.exports = router;
