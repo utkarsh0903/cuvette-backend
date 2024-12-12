@@ -4,6 +4,21 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const User = require("../model/User");
 
+//creating middleware for verifying user
+var verifyUser = async (req, res, next) => {
+    try {
+        const token = req.cookies.token;
+        if(!token){
+            res.json({status: false, message: "Auth Failed"})
+        }
+        const decoded =await jwt.verify(token, "Secret");
+        req.user = decoded;        //payload data to be shared
+        next();
+    } catch (error) {
+        
+    }
+}
+
 router.post("/register", async (req, res) =>{
     const {username, email, password} = req.body;
     const user = await User.findOne({email});
@@ -31,8 +46,13 @@ router.post("/login", async (req, res)=>{
     if(!isMatch){
         return res.status(400).json({message:"Password do not match"});
     }
-    const token = jwt.sign({email:user.email}, "Secret", {expiresIn: "4h"})
+    const token = jwt.sign({email:user.email}, "Secret", {expiresIn: "4h"});
+    res.cookie("token", token);
     return res.json({status:"true", message: "Login successful", token: token})
+})
+
+router.get("/profile", verifyUser, (req, res)=>{
+    res.json({status: true, message:"Profile"})
 })
 
 module.exports = router;

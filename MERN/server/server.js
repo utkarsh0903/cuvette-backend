@@ -3,6 +3,7 @@ dotenv.config();
 const express =require("express");
 const connectDb = require("./config/data");
 const bcrypt = require("bcrypt");
+const cookieParser = require("cookie-parser");
 const cors = require("cors");
 const User = require("./model/User");
 const router = require("./routes/user")
@@ -11,6 +12,7 @@ const app = express();
 connectDb();
 app.use(express.json());
 app.use(cors());
+app.use(cookieParser());
 const port = process.env.PORT || 6000;
 
 app.use("/auth", router)
