@@ -1,6 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const bcrypt = require("bcrypt");
+const jwt = require("jsonwebtoken");
 const User = require("../model/User");
 
 router.post("/register", async (req, res) =>{
@@ -30,7 +31,8 @@ router.post("/login", async (req, res)=>{
     if(!isMatch){
         return res.status(400).json({message:"Password do not match"});
     }
-    return res.json({message: "Login successful"})
+    const token = jwt.sign({email:user.email}, "Secret", {expiresIn: "4h"})
+    return res.json({status:"true", message: "Login successful", token: token})
 })
 
 module.exports = router;
