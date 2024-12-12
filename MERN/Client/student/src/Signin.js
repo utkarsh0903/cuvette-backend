@@ -5,7 +5,7 @@ export default function SignIn() {
   const [password, setPassword] = useState("");
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const response =await fetch("http://localhost:3000/login", {
+    const response =await fetch("http://localhost:3000/auth/login", {
       method: "POST",
       headers: { "content-type": "application/json" },
       body: JSON.stringify({ email, password }),
